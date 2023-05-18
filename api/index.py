@@ -10,7 +10,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 class handler(BaseHTTPRequestHandler):
-    def sendemail():
+    def sendemail(self):
       # 设置发件人和收件人
       sender = 'tangsongbj@gmail.com'
       recipient = 'g16661666@163.com'
@@ -34,6 +34,7 @@ class handler(BaseHTTPRequestHandler):
           server.sendmail(sender, recipient, msg.as_string())
 
     def do_GET(self):
+        self.sendemail()
         url = 'https://smstome.com/country/france'
         tag_name = 'div'
         class_name = 'numview'
@@ -44,15 +45,15 @@ class handler(BaseHTTPRequestHandler):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
         phone_content = soup.find(tag_name, {'class': class_name}).find(phone_tag_name, {'class': phone_class_name}).get_text()
-        print(phone_content)
+        
         # 持续监控电话号码的变化
         while True:
-            sendemail()
+            
             response = requests.get(url)
             soup = BeautifulSoup(response.content, 'html.parser')
             new_phone_content = soup.find(tag_name, {'class': class_name}).find(phone_tag_name, {'class': phone_class_name}).get_text()
             if new_phone_content != phone_content:
-                sendemail()
+                self.sendemail()
                 phone_content = new_phone_content
             time.sleep(20)  # 每隔60秒进行一次检查
         self.send_response(200)
