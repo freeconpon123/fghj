@@ -34,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
           server.sendmail(sender, recipient, msg.as_string())
 
     def do_GET(self):
-        self.sendemail()
+        
         url = 'https://smstome.com/country/france'
         tag_name = 'div'
         class_name = 'numview'
