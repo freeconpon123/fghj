@@ -1,6 +1,6 @@
 hashlib
 requests
-urllib
-bs4
+urllib3
+beautifulsoup4
 smtplib
 email
