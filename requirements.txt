@@ -1,0 +1,6 @@
+hashlib
+requests
+urllib
+bs4
+smtplib
+email
